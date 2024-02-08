@@ -1,33 +1,44 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Rocket : MonoBehaviour
 {
-   public static Rocket instance;
+
 
     Rigidbody2D rb;
+    public Sprite fire;
+    public float speed = 10f;
 
-    public float speed= 10f;
+    public bool isClick = false;
 
     private void Awake()
     {
-        if(instance == null)
-            instance = this;
 
+        isClick = false;
         rb = GetComponent<Rigidbody2D>();
-
-       
     }
 
     public void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (isClick)
         {
-            print("Go :::::::::::: ");
-            rb.AddForce(transform.forward * speed);
+            gameObject.transform.Translate(Vector2.up * 0.2f);
         }
+
+
     }
+    public async void OnclickRocket()
+    {
+
+        print("Go :::::::::::: ");
+        await Task.Delay(2000);
+        isClick = true;
+
+    }
+
 
 }
